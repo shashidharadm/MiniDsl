@@ -4,6 +4,8 @@ import org.eclipse.xtext.xtext.generator.*
 import org.eclipse.xtext.xtext.generator.model.project.*
 
 var rootPath = ".."
+var projectName = "org.xtext.example.minidsl"
+var pathTestPlugins = "../../tests"
 
 Workflow {
 	
@@ -13,12 +15,14 @@ Workflow {
 				baseName = "org.xtext.example.minidsl"
 				rootPath = rootPath
 				runtimeTest = {
+					root="${pathTestPlugins}/${projectName}.tests"
 					enabled = true
 				}
 				eclipsePlugin = {
 					enabled = true
 				}
 				eclipsePluginTest = {
+					root="${pathTestPlugins}/${projectName}.tests"
 					enabled = true
 				}
 				createEclipseMetaData = true

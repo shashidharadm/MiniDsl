@@ -13,7 +13,6 @@ import org.xtext.example.minidsl.miniDsl.MiniDslPackage
 import org.xtext.example.minidsl.miniDsl.PersonField
 import org.xtext.example.minidsl.miniDsl.Program
 import org.xtext.example.minidsl.miniDsl.RepeatStatement
-import org.xtext.example.minidsl.miniDsl.Statement
 import org.xtext.example.minidsl.miniDsl.Value
 
 /**
@@ -25,20 +24,24 @@ class MiniDslGenerator extends AbstractGenerator {
 
 override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 
-        val program = resource.contents.head as Program
+		if(!resource.contents.isNullOrEmpty && resource.contents.head!==null){
+				
+			    val program = resource.contents.head as Program
 
-        val code = '''
-        public class MyMiniDSL {
+				val code = '''
+				public class MyMiniDSL {
+				
+				    public void execute(Person person) {
+				        «FOR stmt : program.statements»
+				            «generateStatement(stmt)»
+				        «ENDFOR»
+				    }
+				}
+				'''
+				
+				fsa.generateFile("MyMiniDSL.java", code)			
+		}
 
-            public void execute(org.example.model.Person person) {
-                «FOR stmt : program.statements»
-                    «generateStatement(stmt)»
-                «ENDFOR»
-            }
-        }
-        '''
-
-        fsa.generateFile("MyMiniDSL.java", code)
     }
 
     // ================== STATEMENTS ==================
@@ -57,7 +60,7 @@ override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorCo
 
     def dispatch CharSequence generateStatement(RepeatStatement stmt) '''
         for (int i = 0; i < «stmt.count»; i++) {
-            System.out.println(«generateValue(stmt.value)»);
+            System.out.println(«generateField(stmt.value)»);
         }
     '''
 
@@ -69,7 +72,6 @@ override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorCo
 
         switch cond.operator {
             case "==":
-                // AGE is numeric → use ==
                 if (cond.left == PersonField::AGE)
                     '''«left» == «right»'''
                 else
@@ -94,10 +96,6 @@ def CharSequence generateValue(Value v) {
 
     if (v.eIsSet(MiniDslPackage.Literals.VALUE__INT_VALUE)) {
         return v.intValue.toString
-    }
-
-    if (v.eIsSet(MiniDslPackage.Literals.VALUE__FIELD)) {
-        return generateField(v.field)
     }
 
     return "null"

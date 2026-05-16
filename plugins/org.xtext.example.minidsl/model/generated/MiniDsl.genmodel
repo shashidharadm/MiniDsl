@@ -21,7 +21,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MiniDsl.ecore#//IfStatement/elseStmt"/>
     </genClasses>
     <genClasses ecoreClass="MiniDsl.ecore#//RepeatStatement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference MiniDsl.ecore#//RepeatStatement/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MiniDsl.ecore#//RepeatStatement/value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MiniDsl.ecore#//RepeatStatement/count"/>
     </genClasses>
     <genClasses ecoreClass="MiniDsl.ecore#//Condition">
@@ -32,7 +32,6 @@
     <genClasses ecoreClass="MiniDsl.ecore#//Value">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MiniDsl.ecore#//Value/stringValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MiniDsl.ecore#//Value/intValue"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute MiniDsl.ecore#//Value/field"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
