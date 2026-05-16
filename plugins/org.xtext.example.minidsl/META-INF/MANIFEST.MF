@@ -1,0 +1,33 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.xtext.example.minidsl
+Bundle-ManifestVersion: 2
+Bundle-Name: org.xtext.example.minidsl
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.xtext.example.minidsl; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext,
+ org.eclipse.xtext.xbase,
+ org.eclipse.equinox.common;bundle-version="3.5.0",
+ org.eclipse.emf.ecore,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
+ org.eclipse.xtext.util,
+ org.eclipse.emf.common,
+ org.eclipse.xtend.lib;bundle-version="2.14.0",
+ org.antlr.runtime;bundle-version="[3.2.0,3.2.1)"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.example.model,
+ org.apache.log4j
+Bundle-ClassPath: lib/antlr-generator-3.2.0-patch.jar,
+ .
+Export-Package: org.xtext.example.minidsl.parser.antlr.internal,
+ org.xtext.example.minidsl.validation,
+ org.xtext.example.minidsl.scoping,
+ org.xtext.example.minidsl.miniDsl.impl,
+ org.xtext.example.minidsl.services,
+ org.xtext.example.minidsl.miniDsl,
+ org.xtext.example.minidsl.generator,
+ org.xtext.example.minidsl.parser.antlr,
+ org.xtext.example.minidsl,
+ org.xtext.example.minidsl.miniDsl.util,
+ org.xtext.example.minidsl.serializer

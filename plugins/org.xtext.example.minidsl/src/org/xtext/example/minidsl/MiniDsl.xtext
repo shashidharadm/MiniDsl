@@ -1,0 +1,33 @@
+grammar org.xtext.example.minidsl.MiniDsl with org.eclipse.xtext.common.Terminals
+
+generate miniDsl "http://www.xtext.org/example/minidsl/MiniDsl"
+
+Program:
+    statements+=Statement*;
+
+Statement:
+      IfStatement
+    | RepeatStatement;
+
+IfStatement:
+    'if' condition=Condition
+    'then' thenStmt=RepeatStatement
+    ('otherwise' elseStmt=RepeatStatement)?;
+
+RepeatStatement:
+    'repeat' value=Value count=INT 'times';
+
+Condition:
+    left=PersonField operator=Operator right=Value;
+
+Operator:
+    '>' | '<' | '==';
+
+Value:
+    {Value}
+    (stringValue=STRING | intValue=INT? | field=PersonField);
+
+enum PersonField:
+      AGE = 'age'
+    | NAME = 'name'
+    | GENDER = 'gender';
